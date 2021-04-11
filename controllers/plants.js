@@ -14,14 +14,29 @@ async function index(req, res) {
 async function create(req, res) {
     try {
         const plant = await Plant.create(req.body);
-        res.status(201).json(plant);
-        // index(req, res);
+        
+         index(req, res);
     } catch (error) {
         res.status(401).json({ error: 'something went wrong' });
     }
 }
 
-module.exports = {
+async function deletePlant(req, res){
+    try {
+        
+        const deletedPlant = await Plant.findByIdAndDelete(req.params.id);
+        
+        index(req, res);
+    } catch (error) {
+        
+    }
+
+}
+        
+
+    module.exports = {
     index,
     create,
+    delete: deletePlant,
+    
 };
